@@ -2,7 +2,11 @@
 "use client";
 
 import { useState } from "react";
-import { useStore } from '@builder.io/mitosis';
+
+const useStore = (initialState) => {
+  const [state, setState] = React.useState(initialState);
+  return state;
+};
 
 
 export default function Dashboard() {
