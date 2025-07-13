@@ -2,6 +2,8 @@
 "use client";
 
 import { useState } from "react";
+import { useStore } from '@builder.io/mitosis';
+
 
 export default function Dashboard() {
   const [user, setUser] = useState({
@@ -170,7 +172,6 @@ export default function Dashboard() {
   },
 });
   
-
   return (
     <div className="p-6 space-y-6">
       <div className="bg-gray-900 p-6 rounded-2xl shadow-lg text-white">
@@ -224,6 +225,9 @@ export default function Dashboard() {
           </button>
           </div>
       )}
+      <h1>Welcome, {state.user.name} {state.user.avatar}</h1>
+      <p>Balance: {state.user.chochyBalance}</p>
+
     </div>
   )
 }
