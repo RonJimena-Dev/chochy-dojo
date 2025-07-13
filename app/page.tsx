@@ -77,7 +77,7 @@ export default function Page() {
         <RewardsSection user={user} />
         <ChochyAssistant trades={trades} />
         <TradingProfile />
-        <SMCZonesPreview />
+    
         <Leaderboard leaderboard={leaderboard} />
       </main>
     </div>
