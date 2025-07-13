@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Glowing Icon Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.toggle-icon {
+  transition: transform 0.4s ease, color 0.3s ease;
+}
+
+.toggle-icon.glow {
+  animation: spin 0.4s ease;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.6));
+}
