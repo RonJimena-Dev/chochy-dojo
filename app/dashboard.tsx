@@ -79,7 +79,6 @@ export default function Dashboard() {
       setUser({ ...user, chochyBalance: user.chochyBalance + 50 });
     }
   }
-
   useStore({
   user: {
     name: "TraderDog",
@@ -170,6 +169,7 @@ export default function Dashboard() {
     }
   },
 });
+  
 
   return (
     <div className="p-6 space-y-6">
