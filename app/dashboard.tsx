@@ -132,5 +132,13 @@ export default function Dashboard() {
             Submit Trade
           </button>
           </div>
-      )
-    }
+      )}
+    </div>
+  )
+}
+      
+      
+    
+  
+    
+  
