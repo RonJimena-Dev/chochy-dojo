@@ -80,6 +80,97 @@ export default function Dashboard() {
     }
   }
 
+  useStore({
+  user: {
+    name: "TraderDog",
+    avatar: "🐕",
+    chochyBalance: 1250,
+    level: "Good Dog",
+    streak: 7,
+  },
+  trades: [
+    {
+      id: 1,
+      pair: "BTC/USD",
+      direction: "Long",
+      risk: "2%",
+      outcome: "+150",
+      emotion: "Disciplined",
+    },
+    {
+      id: 2,
+      pair: "ETH/USD",
+      direction: "Short",
+      risk: "1.5%",
+      outcome: "-75",
+      emotion: "FOMO",
+    },
+    {
+      id: 3,
+      pair: "SOL/USD",
+      direction: "Long",
+      risk: "2%",
+      outcome: "+200",
+      emotion: "Patient",
+    },
+  ],
+  leaderboard: [
+    {
+      rank: 1,
+      name: "AlphaDoge",
+      chochy: 5420,
+    },
+    {
+      rank: 2,
+      name: "ZenTrader",
+      chochy: 4890,
+    },
+    {
+      rank: 3,
+      name: "DiamondPaws",
+      chochy: 4200,
+    },
+    {
+      rank: 4,
+      name: "ShibaWise",
+      chochy: 3750,
+    },
+    {
+      rank: 5,
+      name: "CryptoSensei",
+      chochy: 3200,
+    },
+  ],
+  showTradeForm: false,
+  newTrade: {
+    pair: "",
+    direction: "Long",
+    risk: "",
+    outcome: "",
+    emotion: "Disciplined",
+  },
+  toggleTradeForm() {
+    state.showTradeForm = !state.showTradeForm;
+  },
+  submitTrade() {
+    if (state.newTrade.pair && state.newTrade.risk && state.newTrade.outcome) {
+      state.trades.unshift({
+        id: Date.now(),
+        ...state.newTrade,
+      });
+      state.newTrade = {
+        pair: "",
+        direction: "Long",
+        risk: "",
+        outcome: "",
+        emotion: "Disciplined",
+      };
+      state.showTradeForm = false;
+      state.user.chochyBalance += 50; // Reward for logging trade
+    }
+  },
+});
+
   return (
     <div className="p-6 space-y-6">
       <div className="bg-gray-900 p-6 rounded-2xl shadow-lg text-white">
