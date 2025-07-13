@@ -10,7 +10,7 @@ import RewardsSection from "./rewardsSection";
 import ChochyAssistant from "./chochyAssistant";
 import TradingProfile from "./tradingProfile";
 import Leaderboard from "./leaderboard";
-import TradeForm from "./TradeForm";
+import TradeForm from "./tradeForm";
 
 export default function Page() {
   const [user, setUser] = useState({
