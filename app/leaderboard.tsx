@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { LeaderboardEntry } from "./ChochyDojo";
+import { LeaderboardEntry } from "./chochydojo";
 
 interface LeaderboardProps {
   leaderboard: LeaderboardEntry[];

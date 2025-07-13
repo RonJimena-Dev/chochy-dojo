@@ -1,14 +1,13 @@
 "use client";
 import * as React from "react";
 import { useState } from "react";
-import Header from "./Header";
-import BehaviorTracker from "./BehaviorTracker";
-import TradeLog from "./TradeLog";
+import Header from "./header";
+import BehaviorTracker from "./behaviorTracker";
+import TradeLog from "./tradeLog";
 import RewardsSection from "./RewardsSection";
-import ChochyAssistant from "./ChochyAssistant";
-import TradingProfile from "./TradingProfile";
-import SMCZonesPreview from "./SMCZonesPreview";
-import Leaderboard from "./Leaderboard";
+import ChochyAssistant from "./chochyAssistant";
+import TradingProfile from "./tradingProfile";
+import Leaderboard from "./leaderboard";
 
 export interface User {
   name: string;

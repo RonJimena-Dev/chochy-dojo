@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { User } from "./ChochyDojo";
+import { User } from "./chochydojo";
 
 interface BehaviorTrackerProps {
   user: User;

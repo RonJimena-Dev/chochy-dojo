@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Trade } from "./ChochyDojo";
-import TradeForm from "./TradeForm";
+import { Trade } from "./chochydojo";
+import TradeForm from "./tradeForm";
 
 interface TradeLogProps {
   trades: Trade[];

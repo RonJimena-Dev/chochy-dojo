@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Trade } from "./ChochyDojo";
+import { Trade } from "./chochydojo";
 
 interface TradeFormProps {
   onSubmit: (trade: Omit<Trade, 'id'>) => void;
