@@ -1,7 +1,8 @@
 // app/page.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { supabase } from "../src/supabaseClient";
 import ChoChyDojo from "./chochydojo"
 import Header from "./header";
 import BehaviorTracker from "./behaviorTracker";
@@ -21,32 +22,17 @@ export default function Page() {
     streak: 7,
   });
 
-  const [trades, setTrades] = useState([
-    {
-      id: 1,
-      pair: "BTC/USD",
-      direction: "Long",
-      risk: "2%",
-      outcome: "+150",
-      emotion: "Disciplined",
-    },
-    {
-      id: 2,
-      pair: "ETH/USD",
-      direction: "Short",
-      risk: "1.5%",
-      outcome: "-75",
-      emotion: "FOMO",
-    },
-    {
-      id: 3,
-      pair: "SOL/USD",
-      direction: "Long",
-      risk: "2%",
-      outcome: "+200",
-      emotion: "Patient",
-    },
-  ]);
+  const [trades, setTrades] = useState([]);
+  useEffect(() => {
+    async function fetchTrades() {
+      const { data, error } = await supabase
+        .from('trades')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (!error && data) setTrades(data);
+    }
+    fetchTrades();
+  }, []);
 
   const [leaderboard] = useState([
     { rank: 1, name: "AlphaDoge", chochy: 5420 },
@@ -56,30 +42,57 @@ export default function Page() {
     { rank: 5, name: "CryptoSensei", chochy: 3200 },
   ]);
 
-  const addTrade = (newTrade) => {
-    const trade = {
-      id: Date.now(),
-      ...newTrade,
-    };
-    setTrades((prev) => [trade, ...prev]);
-    setUser((prev) => ({
-      ...prev,
-      chochyBalance: prev.chochyBalance + 50,
-    }));
+  const addTrade = async (newTrade) => {
+    const { data, error } = await supabase
+      .from('trades')
+      .insert([{ ...newTrade }])
+      .select();
+    if (!error && data && data.length > 0) {
+      setTrades((prev) => [data[0], ...prev]);
+      setUser((prev) => ({
+        ...prev,
+        chochyBalance: prev.chochyBalance + 50,
+      }));
+    }
   };
 
+
   return (
-    <div className="min-h-screen text-white bg-neutral-900">
+    <div className="min-h-screen bg-white dark:bg-neutral-900 text-zinc-900 dark:text-white">
       <Header user={user} />
-      <main className="grid gap-6 p-6 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] max-sm:gap-4 max-sm:p-4 max-sm:grid-cols-[1fr]">
-        <BehaviorTracker user={user} />
-        <TradeLog trades={trades} onAddTrade={addTrade} />
-        <RewardsSection user={user} />
-        <ChochyAssistant trades={trades} />
-        <TradingProfile />
-    
-        <Leaderboard leaderboard={leaderboard} />
+      <main className="flex flex-col gap-6 p-6 max-sm:gap-4 max-sm:p-4">
+        {/* Top row */}
+        {/* 5x2 dashboard grid */}
+        <section
+          className="grid grid-cols-5 grid-rows-2 gap-6 max-lg:grid-cols-1 max-lg:grid-rows-none"
+        >
+          {/* Row 1 */}
+          <div className="col-span-1 row-span-1">
+            <BehaviorTracker user={user} />
+          </div>
+          <div className="col-span-3 row-span-2 flex flex-col h-full">
+            <TradeLog trades={trades} onAddTrade={addTrade} />
+          </div>
+          <div className="col-span-1 row-span-1 col-start-5 row-start-1">
+            <TradingProfile />
+          </div>
+          {/* Row 2 */}
+          <div className="col-span-1 row-span-1">
+            <Leaderboard leaderboard={leaderboard} />
+          </div>
+          <div className="col-span-1 row-span-1"></div> {/* Spacer for grid symmetry */}
+          <div className="col-span-1 row-span-1"></div> {/* Spacer for grid symmetry */}
+          <div className="col-span-1 row-span-1 col-start-5 row-start-2">
+            <RewardsSection user={user} />
+          </div>
+        </section>
       </main>
+      {/* Floating Chochy Assistant button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <button className="bg-violet-700 hover:bg-violet-800 text-white rounded-full shadow-lg p-4 flex items-center justify-center text-3xl focus:outline-none focus:ring-2 focus:ring-violet-400">
+          🐕💬
+        </button>
+      </div>
     </div>
   );
 }
